@@ -1,7 +1,7 @@
 {
-  "name": "public-website",
+  "name": "public-web",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/public-website",
+  "sourceRoot": "apps/public-web",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,11 +9,11 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/public-website"
+        "outputPath": "dist/apps/public-web"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/public-website"
+          "outputPath": "apps/public-web"
         },
         "production": {}
       }
@@ -22,16 +22,16 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "public-website:build",
+        "buildTarget": "public-web:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "public-website:build:development",
+          "buildTarget": "public-web:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "public-website:build:production",
+          "buildTarget": "public-web:build:production",
           "dev": false
         }
       }
@@ -39,14 +39,14 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "public-website:build:production"
+        "buildTarget": "public-web:build:production"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/public-website/jest.config.ts",
+        "jestConfig": "apps/public-web/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -60,7 +60,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/public-website/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/public-web/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
