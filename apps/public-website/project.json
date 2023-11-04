@@ -1,7 +1,7 @@
 {
-  "name": "nx-test-template",
+  "name": "public-website",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/nx-test-template",
+  "sourceRoot": "apps/public-website",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,11 +9,11 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/nx-test-template"
+        "outputPath": "dist/apps/public-website"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/nx-test-template"
+          "outputPath": "apps/public-website"
         },
         "production": {}
       }
@@ -22,16 +22,16 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "nx-test-template:build",
+        "buildTarget": "public-website:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "nx-test-template:build:development",
+          "buildTarget": "public-website:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "nx-test-template:build:production",
+          "buildTarget": "public-website:build:production",
           "dev": false
         }
       }
@@ -39,14 +39,14 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "nx-test-template:build:production"
+        "buildTarget": "public-website:build:production"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/nx-test-template/jest.config.ts",
+        "jestConfig": "apps/public-website/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -60,7 +60,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/nx-test-template/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/public-website/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
