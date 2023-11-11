@@ -9,5 +9,5 @@ export default {
   moduleDirectories: ['node_modules', '<rootDir>/node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/account-web',
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
 };
