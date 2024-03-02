@@ -11,6 +11,14 @@
     }
   ],
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@libs/*": [
+        "apps/account-api/src/libs/*"
+      ],
+      "@app/*": [
+        "apps/account-api/src/app/*"
+      ],
+    }
   }
 }
