@@ -6,7 +6,7 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { RootModule } from '@app/root/root.module';
+import { RootModule } from './app/root/root.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(RootModule);

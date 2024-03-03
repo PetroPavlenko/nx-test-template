@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { RootService } from './root.service';
 import { RootController } from './root.controller';
-import { DatabaseModule } from '@libs/database/database.module';
-import { ConfigModule } from '@libs/config/config.module';
+import { DatabaseModule } from '@nx-test-template/database';
+import { ConfigModule } from '@nx-test-template/config';
 
 @Module({
   imports: [DatabaseModule, ConfigModule],
