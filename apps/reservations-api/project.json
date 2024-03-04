@@ -26,7 +26,7 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "reservations-api:build"
+        "buildTarget": "reservations-api:build",
       },
       "configurations": {
         "development": {
