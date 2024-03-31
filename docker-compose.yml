@@ -12,23 +12,39 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     environment:
-      MONGODB_URI: mongodb://mongo_db:27017
-      MONGODB_USER: admin-account
-      MONGODB_PASS: admin
+      # MONGODB_URI: mongodb://mongo_db:27017
+      # MONGODB_USER: admin-account
+      # MONGODB_PASS: admin
+      MYSQL_HOST: mysql
+      MYSQL_PORT: root
+      MYSQL_DATABASE: account
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: random!root
+      MYSQL_SYNCHRONIZE: true
     depends_on:
-      - mongo_db
-  mongo_db:
-    image: mongo
-    volumes:
-      # - ./mongo/data:/data/db
-      - ./mongo/scripts/initdb.js:/initdb.js
+      - mysql
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: account
+      MYSQL_ROOT_PASSWORD: random!root
     ports:
-      - 27017:27017
-  mongo-initdb:
-    image: mongo:7.0.5
-    container_name: mongo-initdb
-    command: mongosh --host mongo_db admin /initdb.js --authenticationDatabase admin
-    volumes:
-      - ./mongo/scripts/initdb.js:/initdb.js
-    depends_on:
-      - mongo_db
+      - 3306:3306
+  
+  #   
+  #     - mongo_db
+  # mongo_db:
+  #   image: mongo
+  #   volumes:
+  #     # - ./mongo/data:/data/db
+  #     - ./mongo/scripts/initdb.js:/initdb.js
+  #   ports:
+  #     - 27017:27017
+  # mongo-initdb:
+  #   image: mongo:7.0.5
+  #   container_name: mongo-initdb
+  #   command: mongosh --host mongo_db admin /initdb.js --authenticationDatabase admin
+  #   volumes:
+  #     - ./mongo/scripts/initdb.js:/initdb.js
+  #   depends_on:
+  #     - mongo_db
