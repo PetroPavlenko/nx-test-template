@@ -1,0 +1,34 @@
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: reservations-development-only
+    command: pnpm nx run reservations-api:serve:development
+    container_name: reservations
+    ports: 
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      MONGODB_URI: mongodb://mongo_db:27017
+      MONGODB_USER: admin-account
+      MONGODB_PASS: admin
+    depends_on:
+      - mongo_db
+  mongo_db:
+    image: mongo
+    volumes:
+      # - ./mongo/data:/data/db
+      - ./mongo/scripts/initdb.js:/initdb.js
+    ports:
+      - 27017:27017
+  mongo-initdb:
+    image: mongo:7.0.5
+    container_name: mongo-initdb
+    command: mongosh --host mongo_db admin /initdb.js --authenticationDatabase admin
+    volumes:
+      - ./mongo/scripts/initdb.js:/initdb.js
+    depends_on:
+      - mongo_db
