@@ -8,7 +8,7 @@ const reservationCreateDtoMock = {
 };
 const date2 = '2024-03-12T00:00:00.000Z';
 
-describe('GET /api', () => {
+describe('SPEC /reservations', () => {
   let newId: string;
 
   it('should not return a message to root', async () => {
@@ -30,8 +30,8 @@ describe('GET /api', () => {
     expect(res.status).toBe(201);
 
     expect(Object.keys(res.data).sort()).toEqual([
-      '_id',
       'endDate',
+      'id',
       'invoiceId',
       'placeId',
       'startDate',
@@ -39,7 +39,7 @@ describe('GET /api', () => {
       'userId',
     ]);
 
-    newId = res.data._id;
+    newId = res.data.id;
     expect(res.data.startDate).toEqual(reservationCreateDtoMock.startDate);
     expect(res.data.endDate).toEqual(reservationCreateDtoMock.endDate);
     expect(res.data.invoiceId).toEqual(reservationCreateDtoMock.invoiceId);
@@ -64,7 +64,7 @@ describe('GET /api', () => {
     const res = await axios.get(`/reservations`);
     expect(Array.isArray(res.data)).toBe(true);
 
-    const newInvoice = res.data.find((item) => item._id === newId);
+    const newInvoice = res.data.find((item) => item.id === newId);
     expect(newInvoice).toBeTruthy();
     expect(newInvoice.startDate).toEqual(reservationCreateDtoMock.startDate);
     expect(newInvoice.endDate).toEqual(reservationCreateDtoMock.endDate);
@@ -75,7 +75,7 @@ describe('GET /api', () => {
   it('should get one reservation', async () => {
     const res = await axios.get(`/reservations/${newId}`);
 
-    expect(res.data._id).toBe(newId);
+    expect(res.data.id).toBe(newId);
     expect(res.data.startDate).toEqual(reservationCreateDtoMock.startDate);
     expect(res.data.endDate).toEqual(reservationCreateDtoMock.endDate);
     expect(res.data.invoiceId).toEqual(reservationCreateDtoMock.invoiceId);
@@ -94,13 +94,11 @@ describe('GET /api', () => {
   it('should delete one reservation', async () => {
     const res = await axios.delete(`/reservations/${newId}`);
 
-    expect(res.data._id).toBe(newId);
-    expect(res.data.startDate).toEqual(date2);
-    expect(res.data.endDate).toEqual(reservationCreateDtoMock.endDate);
+    expect(res.data).toBe('');
     try {
       await axios.get(`/reservations/${newId}`);
     } catch (e) {
-      expect(e.response.data.message).toBe('Document not found');
+      expect(e.response.data.message).toBe('Entity not found');
     }
   });
 });

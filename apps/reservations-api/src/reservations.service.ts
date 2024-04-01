@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
+import { Reservation } from './models/reservation.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -10,31 +11,30 @@ export class ReservationsService {
   ) {}
 
   create(createReservationDto: CreateReservationDto) {
-    return this.reservationsRepository.create({
+    const reservation = new Reservation({
       ...createReservationDto,
       timestamp: new Date(),
       userId: '123',
     });
+    return this.reservationsRepository.create(reservation);
   }
 
   findAll() {
     return this.reservationsRepository.find({});
   }
 
-  findOne(_id: string) {
-    return this.reservationsRepository.findOne({ _id });
+  findOne(id: number) {
+    return this.reservationsRepository.findOne({ id });
   }
 
-  update(_id: string, updateReservationDto: UpdateReservationDto) {
+  update(id: number, updateReservationDto: UpdateReservationDto) {
     return this.reservationsRepository.findOneAndUpdate(
-      { _id },
-      {
-        $set: updateReservationDto,
-      }
+      { id },
+      updateReservationDto
     );
   }
 
-  remove(_id: string) {
-    return this.reservationsRepository.findOneAndDelete({ _id });
+  remove(id: number) {
+    return this.reservationsRepository.findOneAndDelete({ id });
   }
 }

@@ -10,9 +10,9 @@ import * as Joi from 'joi';
     NestConfigModule.forRoot({
       envFilePath: 'apps/account-api/.env',
       validationSchema: Joi.object({
-        MONGODB_URI: Joi.string().required(),
-        MONGODB_USER: Joi.string().required(),
-        MONGODB_PASS: Joi.string().required(),
+        // MONGODB_URI: Joi.string().required(),
+        // MONGODB_USER: Joi.string().required(),
+        // MONGODB_PASS: Joi.string().required(),
       }),
     }),
   ],

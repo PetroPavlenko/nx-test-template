@@ -4,17 +4,12 @@ import { ReservationsController } from './reservations.controller';
 import { ConfigModule, LoggerModule } from '@nx-test-template/config';
 import { DatabaseModule } from '@nx-test-template/database';
 import { ReservationsRepository } from './reservations.repository';
-import {
-  ReservationDocument,
-  ReservationSchema,
-} from './models/reservation.schema';
+import { Reservation } from './models/reservation.entity';
 
 @Module({
   imports: [
     DatabaseModule,
-    DatabaseModule.forFeature([
-      { name: ReservationDocument.name, schema: ReservationSchema },
-    ]),
+    DatabaseModule.forFeature([Reservation]),
     ConfigModule,
     LoggerModule,
   ],
