@@ -12,6 +12,7 @@ function doesUserExist(username, database) {
 // User configuration array
 var usersToCreate = [
     { username: "admin-account", pwd: "admin", dbName: "account", role: "readWrite" },
+    { username: "admin-auth", pwd: "admin", dbName: "account", role: "readWrite" },
     { username: "test2", pwd: "test2", dbName: "test2", role: "readWrite" },
     // Add more users as needed
 ];

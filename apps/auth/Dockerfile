@@ -1,4 +1,5 @@
-FROM node:20-slim As reservations-development-only
+
+FROM node:20-slim As auth-development-only
 
 WORKDIR /usr/src/app
 
@@ -12,9 +13,7 @@ RUN corepack enable
 RUN pnpm install
 COPY . .
 
-# RUN pnpm nx run reservations-api:build:development
-
-FROM node:20-slim As reservations-development
+FROM node:20-slim As auth-development
 
 WORKDIR /usr/src/app
 
@@ -29,9 +28,9 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm nx run reservations-api:build:production
+RUN pnpm nx run auth:build:production
 
-FROM node:20-slim As reservations-production
+FROM node:20-slim As auth-production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -49,4 +48,4 @@ RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/reservations/main"]
+CMD ["node", "dist/apps/auth/main"]

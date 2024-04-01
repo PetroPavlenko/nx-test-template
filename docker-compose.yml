@@ -2,7 +2,7 @@ services:
   reservations:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./apps/reservations-api/Dockerfile
       target: reservations-development-only
     command: pnpm nx run reservations-api:serve:development
     container_name: reservations
@@ -14,6 +14,24 @@ services:
     environment:
       MONGODB_URI: mongodb://mongo_db:27017
       MONGODB_USER: admin-account
+      MONGODB_PASS: admin
+    depends_on:
+      - mongo_db
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: auth-development-only
+    command: pnpm nx run auth:serve:development
+    container_name: auth
+    ports: 
+      - 3001:3001
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      MONGODB_URI: mongodb://mongo_db:27017
+      MONGODB_USER: admin-auth
       MONGODB_PASS: admin
     depends_on:
       - mongo_db
