@@ -1,6 +1,6 @@
-FROM node:20-slim As reservations-development-only
+FROM node:20-alpine As development-only
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
@@ -8,15 +8,15 @@ COPY pnpm-lock.yaml ./
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
-
 RUN pnpm install
+
 COPY . .
 
-# RUN pnpm nx run reservations-api:build:development
+RUN pnpm nx run auth:build:development
 
 FROM node:20-slim As reservations-development
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
@@ -31,12 +31,15 @@ COPY . .
 
 RUN pnpm nx run reservations-api:build:production
 
+
+# ENTRYPOINT ["/bin/sh", "-c", "pnpm nx run auth:serve:development"]
+
 FROM node:20-slim As reservations-production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./

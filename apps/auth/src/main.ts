@@ -7,12 +7,11 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Logger as LogPipe } from 'nestjs-pino';
 
-// import { UsersModule } from './users/users.module';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  console.log('try1 2 7');
   const app = await NestFactory.create(AppModule);
-  console.log('second');
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(LogPipe));
   const port = process.env.PORT || 3001;

@@ -24,7 +24,6 @@ describe('spec /users', () => {
 
     expect(res.status).toBe(201);
 
-    console.log(res);
     expect(Object.keys(res.data).sort()).toEqual(['_id', 'email', 'password']);
 
     expect(res.data.email).toEqual(userCreateDtoMock.email);

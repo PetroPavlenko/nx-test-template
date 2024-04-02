@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '@nx-test-template/database';
-import { LoggerModule } from '@nx-test-template/config';
+import { ConfigModule, LoggerModule } from '@nx-test-template/config';
 
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -13,6 +13,7 @@ import { UsersRepository } from './users.repository';
     DatabaseModule.forFeature([
       { name: UserDocument.name, schema: UserSchema },
     ]),
+    ConfigModule,
     LoggerModule,
   ],
   controllers: [UsersController],
